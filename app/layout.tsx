@@ -1,3 +1,5 @@
+"use client";
+
 import { NextAppDirEmotionCacheProvider } from "tss-react/next/appDir";
 import { DsfrHead } from "@codegouvfr/react-dsfr/next-appdir/DsfrHead";
 import { DsfrProvider } from "@codegouvfr/react-dsfr/next-appdir/DsfrProvider";
@@ -17,29 +19,36 @@ import {
 	FooterConsentManagementItem,
 	FooterPersonalDataPolicyItem
 } from "../ui/consentManagement";
+import { useEffect, useState } from "react";
 
 export default function RootLayout({ children }: { children: JSX.Element; }) {
+	const [isClient, setIsClient] = useState(false);
 
+	useEffect(() => {
+		setIsClient(true);
+	}, []);
 	return (
 		<html {...getHtmlAttributes({ defaultColorScheme })}>
 			<head>
 				<title>Next 14 App Router Demo Setup</title>
 				<StartDsfr />
-				<DsfrHead
-					Link={Link}
-					preloadFonts={[
-						//"Marianne-Light",
-						//"Marianne-Light_Italic",
-						"Marianne-Regular",
-						//"Marianne-Regular_Italic",
-						"Marianne-Medium",
-						//"Marianne-Medium_Italic",
-						"Marianne-Bold"
-						//"Marianne-Bold_Italic",
-						//"Spectral-Regular",
-						//"Spectral-ExtraBold"
-					]}
-				/>
+				{isClient &&
+                    (<DsfrHead
+                        Link={Link}
+                        preloadFonts={[
+                            //"Marianne-Light",
+                            //"Marianne-Light_Italic",
+                            "Marianne-Regular",
+                            //"Marianne-Regular_Italic",
+                            "Marianne-Medium",
+                            //"Marianne-Medium_Italic",
+                            "Marianne-Bold"
+                            //"Marianne-Bold_Italic",
+                            //"Spectral-Regular",
+                            //"Spectral-ExtraBold"
+                        ]}
+                    />)
+                }
 			</head>
 			<body
 				style={{
